@@ -6,20 +6,31 @@
         <div class="col-md-12">
             <div class="card">
 
-                <div class="card-header"><a href="{{ route('favorites') }}">Избранные</a></div>
-                <div class="card-header"><a href="{{ route('home') }}">Все контакты</a></div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link
+                        @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'home')
+                            active
+                        @endif" href="{{ route('home') }}">Все контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link
+                        @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'favorites')
+                            active
+                        @endif" href="{{ route('favorites') }}">Избранные</a>
 
-
+                    </li>
+                </ul>
 
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">First name</th>
-                        <th scope="col">Last name</th>
-                        <th scope="col">Phone</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Телефон</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Favorites</th>
+                        <th scope="col">Избраное</th>
 
                     </tr>
                     </thead>
@@ -33,11 +44,11 @@
                         <td>{{ $contact->email }}</td>
                         <td>
                             @if (auth()->user()->contacts->contains($contact))
-                                <a href="{{ route('delete.favorite', ['contact' => $contact]) }}">
+                                <a href="{{ route('delete.favorite', ['contact' => $contact]) }}" class="btn btn-light">
                                     -
                                 </a>
                             @else
-                                <a href="{{ route('add.favorite', ['contact' => $contact]) }}">
+                                <a href="{{ route('add.favorite', ['contact' => $contact]) }}" class="btn btn-light">
                                     +
                                 </a>
                             @endif
